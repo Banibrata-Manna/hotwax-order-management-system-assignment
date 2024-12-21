@@ -17,8 +17,9 @@ public class OrderResource {
     }
 
     @PostMapping("/orders")
-    public void createOrder(@RequestBody OrderHeader orderHeader) {
-        orderService.createOrder(orderHeader);
+    public ResponseEntity<OrderHeader> createOrder(@RequestBody OrderHeader orderHeader) {
+        OrderHeader orderToBeCreated = orderService.createOrder(orderHeader);
+        return new ResponseEntity<>(orderHeader, HttpStatus.CREATED);
     }
 
     @GetMapping("/orders/{order-id}")

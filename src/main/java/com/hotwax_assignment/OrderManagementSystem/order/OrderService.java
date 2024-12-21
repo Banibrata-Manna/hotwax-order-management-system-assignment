@@ -22,7 +22,7 @@ public class OrderService {
     }
 
     @Transactional
-    public void createOrder(OrderHeader orderHeader) {
+    public OrderHeader createOrder(OrderHeader orderHeader) {
         List<OrderItem> list = orderHeader.getListOfItems();
         orderHeader.setListOfItems(null);
         OrderHeader savedOrderHeader = orderHeaderRepository.save(orderHeader);
@@ -30,7 +30,7 @@ public class OrderService {
         for(OrderItem item : list) {
             item.setOrderId(savedOrderHeader.getOrderId());
         }
-        orderHeaderRepository.save(savedOrderHeader);
+        return orderHeaderRepository.save(savedOrderHeader);
     }
 
     public OrderHeader getOrderById(int id) {
